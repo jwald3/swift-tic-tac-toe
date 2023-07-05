@@ -7,6 +7,8 @@
 
 import Foundation
 
+let gameBoardSize = 3
+
 enum CellState {
     case empty
     case x
@@ -22,7 +24,7 @@ enum GameResult {
 
 
 struct GameModel {
-    var gameBoard: [[CellState]] = Array(repeating: Array(repeating: .empty, count: 3), count: 3)
+    var gameBoard: [[CellState]] = Array(repeating: Array(repeating: .empty, count: gameBoardSize), count: gameBoardSize)
     var isPlayerXTurn: Bool = true
     var gameOver: Bool = false
     
@@ -37,7 +39,7 @@ struct GameModel {
     
     mutating func checkGameResult() -> GameResult {
         // win via rows
-        for i in 0..<3 {
+        for i in 0..<gameBoardSize {
             if gameBoard[i][0] == gameBoard[i][1] && gameBoard[i][1] == gameBoard[i][2] && gameBoard[i][0] != .empty {
                 gameOver = true
                 return gameBoard[i][0] == .x ? .xWins: .oWins
@@ -45,7 +47,7 @@ struct GameModel {
         }
         
         // win via columns
-        for i in 0..<3 {
+        for i in 0..<gameBoardSize {
             if gameBoard[0][i] == gameBoard[1][i] && gameBoard[1][i] == gameBoard[2][i] && gameBoard[0][i] != .empty {
                 gameOver = true
                 return gameBoard[0][i] == .x ? .xWins: .oWins

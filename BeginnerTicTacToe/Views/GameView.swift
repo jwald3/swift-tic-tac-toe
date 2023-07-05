@@ -9,6 +9,8 @@ import SwiftUI
 
 struct GameView: View {
     @ObservedObject var viewModel: GameViewModel
+    let boardSize = 3
+    var indices: [Int] { Array(0..<boardSize) }
     
     var body: some View {
         VStack {
@@ -18,9 +20,9 @@ struct GameView: View {
                 .foregroundColor(Color.blue.opacity(0.7))
             Spacer()
             VStack {
-                ForEach(0..<3) { i in
+                ForEach(indices, id: \.self) { i in
                     HStack {
-                        ForEach(0..<3){ j in
+                        ForEach(indices, id: \.self){ j in
                             CellView(state: viewModel.gameBoard[i][j], x: i, y: j)
                                 .onTapGesture {
                                     viewModel.makeMove(x: i, y: j)
